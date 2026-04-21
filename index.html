@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Musyafar Kamal — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f13;
+    --card: #16161d;
+    --gold: #f5a623;
+    --gold2: #e8890c;
+    --text: #f0f0f0;
+    --muted: #8a8a9a;
+    --border: rgba(245,166,35,0.12);
+    --sidebar-w: 260px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-top {
+    padding: 32px 24px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .logo-tag {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    background: rgba(245,166,35,0.1);
+    color: var(--gold);
+  }
+
+  .nav-link i { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .sidebar-bottom {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  #clock {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #date-display {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .sidebar-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  .sidebar-location i { width: 13px; height: 13px; }
+
+  /* ─── MOBILE TOPBAR ─── */
+  #topbar {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 200;
+  }
+
+  .topbar-logo { font-size: 1.4rem; font-weight: 900; color: var(--gold); }
+
+  #hamburger {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  #mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    z-index: 199;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #mobile-menu.open { display: flex; }
+
+  /* ─── MAIN ─── */
+  #main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  section {
+    padding: 90px 60px;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+
+  .section-title span { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 60px;
+    gap: 60px;
+  }
+
+  .hero-text { flex: 1; }
+
+  .hero-greeting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .hero-greeting i { width: 16px; height: 16px; }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 40px;
+    min-height: 1.8em;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--gold);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 0.8s step-end infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item { text-align: left; }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 4px;
+    max-width: 100px;
+    line-height: 1.3;
+  }
+
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #0f0f13;
+  }
+
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.35); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+  }
+
+  .btn-outline:hover { background: rgba(245,166,35,0.1); transform: translateY(-2px); }
+
+  .btn i { width: 16px; height: 16px; }
+
+  /* Hero photo */
+  .hero-photo { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+
+  .photo-ring {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    padding: 4px;
+    background: conic-gradient(var(--gold), var(--gold2), transparent, var(--gold));
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .photo-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--card);
+    animation: spin 4s linear infinite reverse;
+  }
+
+  .photo-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--bg); }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  .about-bio { font-size: 0.95rem; color: var(--muted); line-height: 1.9; }
+  .about-bio p + p { margin-top: 16px; }
+  .about-bio strong { color: var(--text); }
+
+  .info-cards { display: flex; flex-direction: column; gap: 12px; }
+
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+
+  .info-card:hover { border-color: var(--gold); box-shadow: 0 0 24px rgba(245,166,35,0.2); }
+
+  .info-icon {
+    width: 38px; height: 38px;
+    background: rgba(245,166,35,0.1);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .info-icon i { width: 18px; height: 18px; }
+
+  .info-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .info-value { font-size: 0.875rem; font-weight: 500; color: var(--text); margin-top: 1px; }
+
+  /* ─── EXPERIENCE ─── */
+  #experience { background: #0d0d11; }
+
+  .timeline { position: relative; padding-left: 32px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px; top: 18px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(245,166,35,0.5);
+  }
+
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    transition: all 0.2s;
+  }
+
+  .exp-card:hover { border-color: var(--gold); box-shadow: 0 0 24px rgba(245,166,35,0.2); }
+
+  .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+
+  .exp-role { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+
+  .exp-company {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.85rem; color: var(--gold); font-weight: 500; margin-top: 4px;
+  }
+
+  .exp-company i { width: 14px; height: 14px; }
+
+  .exp-badge {
+    background: rgba(245,166,35,0.12);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    border: 1px solid rgba(245,166,35,0.25);
+  }
+
+  .exp-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+
+  .exp-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-list li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+    top: 2px;
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--bg); }
+
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .skill-bars { display: flex; flex-direction: column; gap: 20px; }
+
+  .skill-item {}
+
+  .skill-meta { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .skill-name { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+  .skill-pct { font-size: 0.8rem; font-weight: 600; color: var(--gold); }
+
+  .skill-track {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold2), var(--gold));
+    border-radius: 3px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .tags-section { display: flex; flex-direction: column; gap: 28px; }
+
+  .tag-group-title {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .tag-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .chip {
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+
+  .chip:hover { background: rgba(245,166,35,0.18); border-color: var(--gold); color: var(--gold); }
+
+  /* ─── EDUCATION ─── */
+  #education { background: #0d0d11; }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    transition: all 0.2s;
+    max-width: 700px;
+  }
+
+  .edu-card:hover { border-color: var(--gold); box-shadow: 0 0 24px rgba(245,166,35,0.2); }
+
+  .edu-icon {
+    width: 64px; height: 64px;
+    background: rgba(245,166,35,0.1);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .edu-icon i { width: 30px; height: 30px; }
+
+  .edu-degree { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+  .edu-school { font-size: 0.9rem; color: var(--gold); font-weight: 500; margin-top: 4px; }
+  .edu-period { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+
+  /* ─── CERTIFICATIONS ─── */
+  #certifications { background: var(--bg); }
+
+  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+
+  .cert-card:hover { border-color: var(--gold); box-shadow: 0 0 24px rgba(245,166,35,0.2); transform: translateY(-3px); }
+
+  .cert-icon {
+    width: 44px; height: 44px;
+    background: rgba(245,166,35,0.1);
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .cert-icon i { width: 22px; height: 22px; }
+
+  .cert-name { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
+  .cert-issuer { font-size: 0.78rem; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .cert-meta { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── CONTACT ─── */
+  #contact { background: #0d0d11; }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .contact-card:hover { border-color: var(--gold); box-shadow: 0 0 24px rgba(245,166,35,0.2); transform: translateY(-3px); }
+
+  .contact-icon {
+    width: 56px; height: 56px;
+    background: rgba(245,166,35,0.1);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    margin: 0 auto 16px;
+  }
+
+  .contact-icon i { width: 26px; height: 26px; }
+
+  .contact-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .contact-value { font-size: 0.9rem; font-weight: 600; color: var(--text); word-break: break-all; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    margin-left: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 28px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  footer span { color: var(--gold); }
+
+  /* ─── FADE IN ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #topbar { display: flex; }
+    #main { margin-left: 0; padding-top: 60px; }
+    section { padding: 60px 24px; }
+    #hero { flex-direction: column-reverse; padding: 40px 24px; gap: 40px; min-height: auto; padding-top: 80px; }
+    .hero-photo { margin-top: 0; }
+    .photo-ring { width: 200px; height: 200px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .cert-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 20px; }
+  }
+
+  @media (max-width: 560px) {
+    .cert-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 1.7rem; }
+    .edu-card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════ -->
+<aside id="sidebar">
+  <div class="sidebar-top">
+    <div class="logo" style="font-size:1.1rem; letter-spacing:-0.5px;">Portofolio</div>
+    <div class="logo" style="font-size:1.3rem;">Musyafar Kamal</div>
+    <div class="logo-tag">Technical Lead</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#about" class="nav-link"><i data-lucide="user"></i> About</a>
+    <a href="#experience" class="nav-link"><i data-lucide="briefcase"></i> Experience</a>
+    <a href="#skills" class="nav-link"><i data-lucide="zap"></i> Skills</a>
+    <a href="#education" class="nav-link"><i data-lucide="graduation-cap"></i> Education</a>
+    <a href="#certifications" class="nav-link"><i data-lucide="award"></i> Certifications</a>
+    <a href="#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div id="clock">00:00:00</div>
+    <div id="date-display">—</div>
+    <div class="sidebar-location">
+      <i data-lucide="map-pin"></i>
+      Pekanbaru, Riau
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════
+     MOBILE TOPBAR
+════════════════════════════════════════════ -->
+<header id="topbar">
+  <div class="topbar-logo">MK.</div>
+  <button id="hamburger" aria-label="Menu">
+    <i data-lucide="menu" style="width:24px;height:24px;"></i>
+  </button>
+</header>
+
+<nav id="mobile-menu">
+  <a href="#about" class="nav-link"><i data-lucide="user"></i> About</a>
+  <a href="#experience" class="nav-link"><i data-lucide="briefcase"></i> Experience</a>
+  <a href="#skills" class="nav-link"><i data-lucide="zap"></i> Skills</a>
+  <a href="#education" class="nav-link"><i data-lucide="graduation-cap"></i> Education</a>
+  <a href="#certifications" class="nav-link"><i data-lucide="award"></i> Certifications</a>
+  <a href="#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════ -->
+<main id="main">
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-text fade-in">
+      <div class="hero-greeting">
+        <i data-lucide="sparkles"></i>
+        Selamat datang di portfolio saya
+      </div>
+      <h1 class="hero-name">Musyafar Kamal</h1>
+      <p class="hero-subtitle">
+        <span id="typed-text"></span><span class="typing-cursor"></span>
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" data-target="5">0</div>
+          <div class="stat-label">+ Tahun Pengalaman</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="3">0</div>
+          <div class="stat-label">Perusahaan</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="10">0</div>
+          <div class="stat-label">+ Sertifikasi &amp; Skill</div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-gold"><i data-lucide="send"></i> Hubungi Saya</a>
+        <a href="#" class="btn btn-outline"><i data-lucide="file-text"></i> Lihat CV</a>
+      </div>
+    </div>
+
+    <div class="hero-photo fade-in">
+      <div class="photo-ring">
+        <div class="photo-inner">
+          <img src="IMG/fotosaya.png" alt="Musyafar Kamal" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="section-label fade-in">Tentang Saya</div>
+    <h2 class="section-title fade-in">Siapa <span>Saya?</span></h2>
+
+    <div class="about-grid">
+      <div class="about-bio fade-in">
+        <p>Lulusan <strong>Teknik Elektronika Industri</strong> dengan pengalaman lebih dari <strong>5 tahun</strong> di bidang teknologi, manajemen operasional digital, dan hospitality.</p>
+        <p>Terbiasa <strong>mengelola tim</strong>, menangani troubleshooting kritis, dan memastikan standar kualitas tinggi di setiap proyek. Memiliki keahlian teknis mulai dari <strong>instalasi fiber optik</strong>, perawatan proyektor &amp; audio, hingga manajemen café &amp; barista.</p>
+        <p>Memprioritaskan <strong>efisiensi, kualitas, dan kepuasan pelanggan</strong>, dengan kemampuan problem-solving yang terbukti. Mampu bekerja secara individu maupun dalam tim, serta memiliki loyalitas dan etos kerja yang tinggi.</p>
+      </div>
+
+      <div class="info-cards fade-in">
+        <div class="info-card">
+          <div class="info-icon"><i data-lucide="map-pin"></i></div>
+          <div>
+            <div class="info-label">Lokasi</div>
+            <div class="info-value">Kota Pekanbaru, Riau</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i data-lucide="phone"></i></div>
+          <div>
+            <div class="info-label">Telepon</div>
+            <div class="info-value">0822-8892-6615</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i data-lucide="mail"></i></div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">musyafar.kamal09@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i data-lucide="graduation-cap"></i></div>
+          <div>
+            <div class="info-label">Pendidikan</div>
+            <div class="info-value">SMK N 2 Pekanbaru</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i data-lucide="briefcase"></i></div>
+          <div>
+            <div class="info-label">Pengalaman</div>
+            <div class="info-value">5+ Tahun di Industri</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="section-label fade-in">Karir</div>
+    <h2 class="section-title fade-in">Pengalaman <span>Kerja</span></h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Teknisi Cinema &amp; Theatre System</div>
+              <div class="exp-company"><i data-lucide="building-2"></i> Cinema XXI</div>
+            </div>
+            <span class="exp-badge">2022 — Sekarang</span>
+          </div>
+          <ul class="exp-list">
+            <li>Maintenance dan kalibrasi proyektor digital cinema (Christie, Barco)</li>
+            <li>Pengelolaan Theatre Management System (TMS) dan server konten</li>
+            <li>Instalasi dan troubleshooting sistem audio Dolby Atmos &amp; 7.1 surround</li>
+            <li>Koordinasi jadwal maintenance preventif seluruh unit bioskop</li>
+            <li>Penanganan kerusakan darurat untuk meminimalkan downtime operasional</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Teknisi &amp; Supervisor Operasional</div>
+              <div class="exp-company"><i data-lucide="building-2"></i> Marka Kopi</div>
+            </div>
+            <span class="exp-badge">2020 — 2022</span>
+          </div>
+          <ul class="exp-list">
+            <li>Instalasi dan maintenance peralatan elektronik kafe (mesin kopi, POS system)</li>
+            <li>Pengelolaan sistem audio dan pencahayaan ambient</li>
+            <li>Supervisi tim teknisi dan barista dalam operasional harian</li>
+            <li>Manajemen inventaris peralatan dan spare part</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Teknisi Jaringan &amp; Fiber Optik</div>
+              <div class="exp-company"><i data-lucide="building-2"></i> Telkom Akses</div>
+            </div>
+            <span class="exp-badge">2018 — 2019</span>
+          </div>
+          <ul class="exp-list">
+            <li>Instalasi jaringan fiber optik FTTH untuk pelanggan residensial dan bisnis</li>
+            <li>Splicing dan terminasi kabel fiber optik dengan OTDR testing</li>
+            <li>Troubleshooting gangguan jaringan dan pemeliharaan infrastruktur</li>
+            <li>Dokumentasi teknis instalasi dan laporan pekerjaan lapangan</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="section-label fade-in">Kemampuan</div>
+    <h2 class="section-title fade-in">Technical <span>Skills</span></h2>
+
+    <div class="skills-grid">
+      <div class="skill-bars fade-in">
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Fiber Optik &amp; Telekomunikasi</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Proyektor &amp; Audio System</span>
+            <span class="skill-pct">92%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Instalasi Listrik &amp; Elektronika</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Soldering &amp; PCB Repair</span>
+            <span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Theatre Management System</span>
+            <span class="skill-pct">88%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-meta">
+            <span class="skill-name">Maintenance AC</span>
+            <span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+        </div>
+      </div>
+
+      <div class="tags-section fade-in">
+        <div>
+          <div class="tag-group-title">Software &amp; Tools</div>
+          <div class="tag-chips">
+            <span class="chip">TMS Software</span>
+            <span class="chip">OTDR Testing</span>
+            <span class="chip">Optical Power Meter</span>
+            <span class="chip">Microsoft Office</span>
+            <span class="chip">Python (Basic)</span>
+            <span class="chip">Data Science Basic</span>
+          </div>
+        </div>
+        <div>
+          <div class="tag-group-title">Coffee &amp; Barista</div>
+          <div class="tag-chips">
+            <span class="chip">Coffee Mixologist</span>
+            <span class="chip">Latte Art</span>
+            <span class="chip">Menu Development</span>
+            <span class="chip">Kopi Susu &amp; Mocktail</span>
+            <span class="chip">Manajemen Kafe</span>
+            <span class="chip">Brand Awareness</span>
+          </div>
+        </div>
+        <div>
+          <div class="tag-group-title">Hospitality &amp; Operasional</div>
+          <div class="tag-chips">
+            <span class="chip">Cinema Operations</span>
+            <span class="chip">Inventory Control</span>
+            <span class="chip">SOP Compliance</span>
+            <span class="chip">Social Media Mgmt</span>
+            <span class="chip">K3 (Keselamatan Kerja)</span>
+          </div>
+        </div>
+        <div>
+          <div class="tag-group-title">Soft Skills</div>
+          <div class="tag-chips">
+            <span class="chip">Problem Solving</span>
+            <span class="chip">Team Leadership</span>
+            <span class="chip">Komunikasi</span>
+            <span class="chip">Adaptif</span>
+            <span class="chip">Detail-Oriented</span>
+            <span class="chip">Time Management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="section-label fade-in">Latar Belakang</div>
+    <h2 class="section-title fade-in">Pendidikan</h2>
+
+    <div class="edu-card fade-in">
+      <div class="edu-icon"><i data-lucide="graduation-cap"></i></div>
+      <div>
+        <div class="edu-degree">Teknik Elektronika Industri</div>
+        <div class="edu-school">SMK Negeri 2 Pekanbaru</div>
+        <div class="edu-period">Pekanbaru, Riau &nbsp;·&nbsp; Lulus 2019</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CERTIFICATIONS ── -->
+  <section id="certifications">
+    <div class="section-label fade-in">Pencapaian</div>
+    <h2 class="section-title fade-in">Sertifikasi &amp; <span>Pelatihan</span></h2>
+
+    <div class="cert-grid">
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon"><i data-lucide="wifi"></i></div>
+        <div class="cert-name">Magang Teknik Jaringan</div>
+        <div class="cert-issuer">Telkom Akses</div>
+        <div class="cert-meta">Program magang resmi bidang instalasi dan pemeliharaan jaringan fiber optik FTTH</div>
+      </div>
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon"><i data-lucide="cpu"></i></div>
+        <div class="cert-name">Teknik Elektronika Industri</div>
+        <div class="cert-issuer">SMK N 2 Pekanbaru</div>
+        <div class="cert-meta">Kompetensi keahlian elektronika industri, instalasi listrik, dan sistem kontrol</div>
+      </div>
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon"><i data-lucide="coffee"></i></div>
+        <div class="cert-name">Mengelola Usaha Warung Kopi</div>
+        <div class="cert-issuer">Lembaga Pelatihan Usaha</div>
+        <div class="cert-meta">Sertifikasi pengelolaan usaha kafe, manajemen operasional, dan standar pelayanan</div>
+      </div>
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon"><i data-lucide="database"></i></div>
+        <div class="cert-name">Introduction to Data Science with Python</div>
+        <div class="cert-issuer">DQLab</div>
+        <div class="cert-meta">10 April 2026<br />ID: #DQLABINTP1LLTRHD</div>
+      </div>
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon"><i data-lucide="bot"></i></div>
+        <div class="cert-name">Guide to Learn Python with AI at DQLab</div>
+        <div class="cert-issuer">DQLab</div>
+        <div class="cert-meta">10 April 2026<br />ID: #DQLABAI001AMUBRI</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="section-label fade-in">Terhubung</div>
+    <h2 class="section-title fade-in">Hubungi <span>Saya</span></h2>
+
+    <div class="contact-grid">
+      <div class="contact-card fade-in">
+        <div class="contact-icon"><i data-lucide="mail"></i></div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">musyafar.kamal09@gmail.com</div>
+      </div>
+      <div class="contact-card fade-in">
+        <div class="contact-icon"><i data-lucide="phone"></i></div>
+        <div class="contact-label">Telepon / WhatsApp</div>
+        <div class="contact-value">0822-8892-6615</div>
+      </div>
+      <div class="contact-card fade-in">
+        <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+        <div class="contact-label">Lokasi</div>
+        <div class="contact-value">Kota Pekanbaru, Riau</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 <span>Musyafar Kamal</span>. Crafted with passion.
+</footer>
+
+<script>
+// ── Init Lucide Icons ──
+lucide.createIcons();
+
+// ── Real-time Clock ──
+function updateClock() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById('clock').textContent = `${hh}:${mm}:${ss}`;
+
+  const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const dayName = days[now.getDay()];
+  const date = now.getDate();
+  const month = months[now.getMonth()];
+  const year = now.getFullYear();
+  document.getElementById('date-display').textContent = `${dayName}, ${date} ${month} ${year}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ── Typing Effect ──
+const phrases = [
+  'Teknisi Cinema & Theatre System',
+  'Spesialis Fiber Optik & Jaringan',
+  'Elektronika & Audio Visual Expert',
+  'Technical Lead yang Berdedikasi'
+];
+let phraseIdx = 0, charIdx = 0, deleting = false;
+const typedEl = document.getElementById('typed-text');
+
+function typeLoop() {
+  const current = phrases[phraseIdx];
+  if (!deleting) {
+    typedEl.textContent = current.slice(0, ++charIdx);
+    if (charIdx === current.length) {
+      deleting = true;
+      setTimeout(typeLoop, 1800);
+      return;
+    }
+  } else {
+    typedEl.textContent = current.slice(0, --charIdx);
+    if (charIdx === 0) {
+      deleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+    }
+  }
+  setTimeout(typeLoop, deleting ? 45 : 75);
+}
+typeLoop();
+
+// ── Intersection Observer: fade-in + skill bars + counters ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+
+    // Fade in
+    if (el.classList.contains('fade-in')) {
+      el.classList.add('visible');
+    }
+
+    // Skill bars
+    el.querySelectorAll('.skill-fill').forEach(bar => {
+      const w = bar.getAttribute('data-width');
+      bar.style.width = w + '%';
+    });
+
+    // Counters
+    el.querySelectorAll('.stat-num[data-target]').forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const step = Math.ceil(target / 40);
+      const interval = setInterval(() => {
+        current = Math.min(current + step, target);
+        counter.textContent = current;
+        if (current >= target) clearInterval(interval);
+      }, 35);
+      counter.removeAttribute('data-target');
+    });
+
+    observer.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in, .skill-bars, .hero-stats').forEach(el => observer.observe(el));
+
+// ── Active nav link on scroll ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+// ── Mobile hamburger ──
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const sidebar = document.getElementById('sidebar');
+
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+
+mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// Close sidebar overlay on mobile nav click
+sidebar.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 900) sidebar.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
